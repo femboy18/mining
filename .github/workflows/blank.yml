@@ -54,7 +54,7 @@ jobs:
 
         Add-Type -AssemblyName System.Windows.Forms
 
-        [System.Windows.Forms.SendKeys]::SendWait("dllblr{ENTER}")
+        [System.Windows.Forms.SendKeys]::SendWait("sergeypastukhov{ENTER}")
 
 
 
